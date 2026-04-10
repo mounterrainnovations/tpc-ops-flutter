@@ -23,7 +23,7 @@ class AppHapticFeedback {
   }
 
   static Future<void> error() async {
-    if (await Vibration.hasVibrator() ?? false) {
+    if (await Vibration.hasVibrator()) {
       await Vibration.vibrate(duration: 500);
     } else {
       await HapticFeedback.heavyImpact();
@@ -31,7 +31,7 @@ class AppHapticFeedback {
   }
 
   static Future<void> warning() async {
-    if (await Vibration.hasVibrator() ?? false) {
+    if (await Vibration.hasVibrator()) {
       await Vibration.vibrate(pattern: [0, 50, 50, 50]);
     } else {
       await HapticFeedback.mediumImpact();

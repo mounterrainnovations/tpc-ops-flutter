@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 enum ScanStatus { valid, alreadyScanned, invalid }
 enum ScanMethod { qr, manual }
 
