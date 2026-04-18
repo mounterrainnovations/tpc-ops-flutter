@@ -15,12 +15,12 @@ class AuthRepository {
   /// Login using vendor portal API
   Future<User> login(String username, String password) async {
     AppLogger.info('Attempting login for: $username');
-    AppLogger.info('API URL: ${AppConfig.apiBaseUrl}/api/scanner-members/verify-login');
+    AppLogger.info('API URL: ${AppConfig.vendorPortalOrigin}/api/scanner-members/verify-login');
 
     try {
       // Call vendor portal login API
       final response = await http.post(
-        Uri.parse('${AppConfig.apiBaseUrl}/api/scanner-members/verify-login'),
+        Uri.parse('${AppConfig.vendorPortalOrigin}/api/scanner-members/verify-login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,

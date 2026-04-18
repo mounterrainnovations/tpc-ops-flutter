@@ -1,6 +1,6 @@
 # TPC Ops (Flutter)
 
-Mobile operations app for **TPC / Trippe Chalo** staff: scanner member login, QR ticket scanning, manual ticket entry, scan history, and profile. Auth talks to the vendor HTTP API; ticket validation uses **Supabase** RPCs.
+Mobile operations app for **TPC / Trippe Chalo** staff: scanner member login, QR ticket scanning, manual ticket entry, scan history, and profile. **Supabase** is reached only via **`tpc-backend-go`** (same URLs as the JS client: `/auth`, `/rest/v1`, `/storage/v1`). Scanner member login still uses the vendor portal’s legacy `/api/*` routes — see `lib/core/constants/app_config.dart` (`VENDOR_PORTAL_ORIGIN`, default `http://localhost:5175`).
 
 ## Requirements
 
@@ -66,15 +66,22 @@ dart run flutter_launcher_icons
 
 ## Configuration
 
-- **Vendor API (login):** default base URL is `https://vendor.trippechalo.in`. Override at build/run time with Dart defines, for example:
+See `lib/core/constants/app_config.dart`.
 
-  ```bash
-  flutter run --dart-define=API_BASE_URL=https://your-api.example
-  ```
+- **`API_BASE_URL`** — `tpc-backend-go` (default `http://localhost:3000`).
+- **`SUPABASE_BFF_URL`** — must match the Go API origin (same as BFF for Auth/REST/RPC); default `http://localhost:3000`.
+- **`SUPABASE_BFF_PLACEHOLDER_KEY`** — public placeholder string; the server replaces the real `apikey` on proxied calls.
+- **`VENDOR_PORTAL_ORIGIN`** — vendor app / legacy `/api/scanner-members/*` (default `http://localhost:5175`).
 
-  See `lib/core/constants/app_config.dart` for `API_BASE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `PRODUCTION`.
+Example:
 
-- **Supabase:** `lib/main.dart` initializes Supabase at startup. Prefer aligning URL/key with `AppConfig` and passing values via `--dart-define` for non-commit secrets in production.
+```bash
+flutter run --dart-define=API_BASE_URL=http://localhost:3000 \
+  --dart-define=SUPABASE_BFF_URL=http://localhost:3000 \
+  --dart-define=VENDOR_PORTAL_ORIGIN=http://localhost:5175
+```
+
+Web on port **8080** (optional): `flutter run -d chrome --web-port=8080` with the same defines.
 
 - **Camera:** ensure the app has camera permission on device (see `permission_handler` / platform manifests).
 
