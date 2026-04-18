@@ -11,7 +11,7 @@ Provide a field-ready mobile app for scanner members: authenticate against the v
 ## Scope
 
 - In scope: login/logout, session persistence (SharedPreferences), QR scan (mobile_scanner), manual ticket number entry, local scan history with stats, profile, theming, haptic/audio feedback.
-- Backend integration: HTTP login to `AppConfig.apiBaseUrl`; Supabase for ticket verification; scan history stored locally (not only in Supabase client state).
+- Backend integration: HTTP login to vendor **`VENDOR_PORTAL_ORIGIN`** (`/api/scanner-members/*`); **Supabase RPCs** (`verify_and_use_ticket`, etc.) via **`tpc-backend-go`** at **`SUPABASE_BFF_URL`** / **`API_BASE_URL`** (same BFF as web clients). Scan history stored locally.
 
 ## Success criteria
 

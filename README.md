@@ -16,6 +16,30 @@ flutter doctor -v
 
 If you use Android command-line tools or `sdkmanager` outside Android Studio, set `ANDROID_HOME` to your SDK (often `~/Library/Android/sdk`) and put `platform-tools` and `cmdline-tools/latest/bin` on your `PATH` if needed.
 
+## Full stack local setup
+
+The app talks to **`tpc-backend-go`** for Auth/REST/RPC (`SUPABASE_BFF_URL`) and optionally to the **vendor portal** origin for scanner-member login (`VENDOR_PORTAL_ORIGIN`). Start dependencies in this order:
+
+1. **`tpc-backend-go`** (database + migrations + API):
+   ```bash
+   cd /path/to/tpc-backend-go
+   make dev-db-ready    # Docker Postgres + all goose migrations (see that repo’s README)
+   make run-api         # http://localhost:3000 — verify /health
+   ```
+2. **Vendor portal** (if you use real `/api/scanner-members/*` flows against the Vite dev server):
+   ```bash
+   cd /path/to/tpc-vendor-portal
+   npm install && npm run dev    # default http://localhost:5175
+   ```
+3. **This app** — from repo root:
+   ```bash
+   flutter pub get
+   dart run build_runner build --delete-conflicting-outputs
+   flutter run
+   ```
+
+If **`tpc-backend-go`** is not running, network calls will fail (e.g. connection refused). Details: **[tpc-backend-go README — Local setup](../tpc-backend-go/README.md#local-setup-step-by-step)**.
+
 ## Local setup
 
 From the repo root:

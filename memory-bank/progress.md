@@ -10,9 +10,8 @@
 
 ## Local / repo hygiene
 
-- README and memory bank added for contributors and AI session continuity.
-- Asset folders created with `.gitkeep` so `pubspec` asset entries resolve structurally.
-- **Setup verified:** `flutter pub get`, `dart run build_runner build --delete-conflicting-outputs`, and `flutter test` succeed on a machine with Flutter + Android/iOS toolchains.
+- README documents **full stack** ( **`tpc-backend-go`** migrations + API, optional **vendor portal**, then Flutter).
+- Memory bank + `.gitkeep` assets; **Setup verified:** `flutter pub get`, `build_runner`, `flutter test` with Flutter + mobile toolchains.
 
 ## Outstanding / verify
 

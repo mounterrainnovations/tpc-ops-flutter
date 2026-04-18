@@ -26,7 +26,7 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
-Optional defines: `API_BASE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `PRODUCTION` (see `AppConfig`).
+Optional defines: **`API_BASE_URL`**, **`SUPABASE_BFF_URL`** (match **`tpc-backend-go`**), **`VENDOR_PORTAL_ORIGIN`**, `PRODUCTION` (see `AppConfig`). Local dev: start Go API (**`make run-api`**) after **`make dev-db-ready`**.
 
 ## Assets
 
